@@ -1,32 +1,35 @@
 package com.javaex.ex01;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class Ex02 {
+public class Ex03 {
 
 	public static void main(String[] args) throws IOException {
 
 		InputStream in = new FileInputStream("C:\\Users\\Main\\Desktop\\javaStudy\\file\\img.jpg");
-		OutputStream out = new FileOutputStream("C:\\Users\\Main\\Desktop\\javaStudy\\file\\BufferImg.jpg");
+		BufferedInputStream bin = new BufferedInputStream(in);
+		
+		OutputStream out = new FileOutputStream("C:\\Users\\Main\\Desktop\\javaStudy\\file\\BuffImg.jpg");
+		BufferedOutputStream bout = new BufferedOutputStream(out);
 
 		int data;
-		byte[] buff = new byte[1024];
 
-		System.out.println("복사시작");
 		while (true) {
-			data = in.read(buff);
+			data = bin.read();
 			if (data == -1) {
-				System.out.println("복사끝: " + data);
 				break;
 			}
-			out.write(buff);
+			bout.write(data);
 		}
-		in.close();
-		out.close();
+		
+		bout.close();
+		bin.close();
+		
 	}
-
 }

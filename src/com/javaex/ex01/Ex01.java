@@ -25,7 +25,8 @@ public class Ex01 {
 			os.write(data);
 
 		}
-
+		is.close();
+		os.close();
 	}
 
 }
