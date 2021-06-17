@@ -1,0 +1,80 @@
+package com.javaex.ex03;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class PhoneApp {
+
+	public static void main(String[] args) throws IOException {
+
+		Reader fr = new FileReader("C:\\Users\\Hi-PC\\Desktop\\JavaStudy\\file\\PhoneDB.txt");
+		BufferedReader br = new BufferedReader(fr);
+
+		Scanner sc = new Scanner(System.in);
+
+		List<Person> pList = new ArrayList<Person>();
+
+		String line = "";
+
+		while (true) {
+
+			line = br.readLine();
+			if (line == null) {
+				break;
+			}
+
+			String[] pInfo = line.split(",");
+
+			String name = pInfo[0];
+			String hp = pInfo[1];
+			String company = pInfo[2];
+
+			Person person = new Person(name, hp, company);
+
+			pList.add(person);
+		}
+
+		System.out.println("q = 정보 입력 멈추기");
+		while(true) {
+			
+			System.out.print("이름: ");
+			String name = sc.next();
+			if(name.equals("q")) {
+				break;
+			}
+			System.out.print("핸드폰: ");
+			String hp = sc.next();
+			System.out.print("회사: ");
+			String company = sc.next();
+
+			Person person = new Person(name, hp, company);
+
+			pList.add(person);
+			
+		}
+
+		Writer fw = new FileWriter("C:\\Users\\Hi-PC\\Desktop\\JavaStudy\\file\\PhoneDB_Plus.txt");
+		BufferedWriter bw = new BufferedWriter(fw);
+
+		for (int i = 0; i < pList.size(); i++) {
+			bw.write(pList.get(i).getName()+
+			   "," + pList.get(i).getHp()+
+			   "," + pList.get(i).getCompany());
+			bw.newLine();
+		}
+
+		sc.close();
+		bw.close();
+		br.close();
+
+	}
+
+}
